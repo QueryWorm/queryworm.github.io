@@ -85,210 +85,71 @@
     border-bottom: 1px solid var(--border);
   }
 
-  /* ---------- ШИРИНА ОТ 700px ДО 1199px: картинка сверху, графики в строку ---------- */
   @media (min-width: 700px) and (max-width: 1199px) {
-    .top-row {
-      flex-direction: column;
-    }
-    .hero-img {
-      width: 100%;
-      height: auto;
-    }
-    .hero-img img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .charts-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .chart-card {
-      height: auto;
-      max-height: 220px;
-      min-height: 180px;
-    }
-    .chart-wrap {
-      max-height: 160px;
-      overflow: hidden;
-    }
+    .top-row { flex-direction: column; }
+    .hero-img { width: 100%; height: auto; }
+    .hero-img img { width: 100%; height: auto; display: block; }
+    .charts-group { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .chart-card { height: auto; max-height: 220px; min-height: 180px; }
+    .chart-wrap { max-height: 160px; overflow: hidden; }
   }
 
-  /* ---------- ШИРИНА ОТ 1200px: картинка и графики в ряд, картинка обрезается ---------- */
   @media (min-width: 1200px) {
-    .top-row {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 20px;
-      align-items: stretch;
-    }
-    .charts-group {
-      display: contents; /* убираем обёртку, дочерние элементы становятся ячейками грида */
-    }
-    .hero-img {
-      height: 200px;
-      overflow: hidden;
-      border-radius: 12px;
-    }
-    .hero-img img {
-      width: 920px;
-      height: 200px;
-      margin-left: 50%;
-      transform: translateX(-50%);
-      object-fit: none;       /* не масштабируем, только обрезаем */
-    }
-    .chart-card {
-      height: 200px;
-      display: flex;
-      flex-direction: column;
-    }
-    .chart-wrap {
-      flex: 1;
-      min-height: 0;
-      overflow: hidden;
-    }
-    .chart-wrap canvas {
-      max-height: 150px;
-      width: 100% !important;
-      height: auto !important;
-    }
+    .top-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 20px; align-items: stretch; }
+    .charts-group { display: contents; }
+    .hero-img { height: 200px; overflow: hidden; border-radius: 12px; }
+    .hero-img img { width: 920px; height: 200px; margin-left: 50%; transform: translateX(-50%); object-fit: none; }
+    .chart-card { height: 200px; display: flex; flex-direction: column; }
+    .chart-wrap { flex: 1; min-height: 0; overflow: hidden; }
+    .chart-wrap canvas { max-height: 150px; width: 100% !important; height: auto !important; }
   }
 
-  /* ---------- МОБИЛЬНЫЕ (ШИРИНА МЕНЕЕ 700px): картинка сверху, графики скрыты ---------- */
   @media (max-width: 699px) {
     body { font-size: 15px; overflow-x: hidden; }
     html { overflow-x: hidden; }
-    .top-row {
-      flex-direction: column;
-      padding: 8px;
-      gap: 8px;
-    }
-    .hero-img {
-      width: 100%;
-      height: auto;
-    }
-    .hero-img img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .charts-group {
-      display: none;
-    }
-    .hero-text {
-      left: 12px;
-      top: 12px;
-      padding: 6px 12px;
-    }
+    .top-row { flex-direction: column; padding: 8px; gap: 8px; }
+    .hero-img { width: 100%; height: auto; }
+    .hero-img img { width: 100%; height: auto; display: block; }
+    .charts-group { display: none; }
+    .hero-text { left: 12px; top: 12px; padding: 6px 12px; }
     .hero-text h1 { font-size: 16px; }
     .hero-text .sub { font-size: 10px; }
-    .stats {
-      padding: 12px 16px;
-      gap: 8px;
-      grid-template-columns: repeat(2, 1fr);
-    }
+    .stats { padding: 12px 16px; gap: 8px; grid-template-columns: repeat(2, 1fr); }
     .content { padding: 16px; }
   }
 
-  /* ---------- САЙДБАР НА УЗКИХ ЭКРАНАХ (≤700px): горизонтальный ---------- */
   @media (max-width: 700px) {
     .layout { grid-template-columns: 1fr; align-content: start; overflow-x: hidden; }
     .main { max-width: 100vw; overflow-x: hidden; }
     .sidebar {
-      position: static;
-      height: 48px;
-      min-height: unset;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      align-items: center;
-      padding: 0 16px;
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-      overflow-x: auto;
-      overflow-y: hidden;
+      position: static; height: 48px; min-height: unset;
+      flex-direction: row; flex-wrap: nowrap; align-items: center;
+      padding: 0 16px; border-right: none; border-bottom: 1px solid var(--border);
+      overflow-x: auto; overflow-y: hidden;
     }
     .sidebar-logo { display: none; }
-    .sidebar-nav {
-      flex-direction: row;
-      padding: 0;
-      gap: 0;
-      justify-content: space-around;
-      width: 100%;
-    }
+    .sidebar-nav { flex-direction: row; padding: 0; gap: 0; justify-content: space-around; width: 100%; }
     .nav-item { padding: 6px 7px; font-size: 0; white-space: nowrap; }
     .nav-icon .material-icons { font-size: 18px; }
     .sidebar-footer { display: none; }
   }
 
-  /* Общие стили */
-  .hero-img {
-    position: relative;
-    border-radius: 12px;
-    background: var(--surface);
-    overflow: hidden;
-  }
-  .hero-text {
-    position: absolute;
-    left: 20px;
-    top: 20px;
-    padding: 8px 16px;
-    /*border-radius: 10px;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(4px);*/
-    color: var(--text);
-    pointer-events: none;
-  }
+  .hero-img { position: relative; border-radius: 12px; background: var(--surface); overflow: hidden; }
+  .hero-text { position: absolute; left: 20px; top: 20px; padding: 8px 16px; color: var(--text); pointer-events: none; }
   .hero-text h1 { font-size: 18px; font-weight: 700; margin: 0; }
   .hero-text .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
   .chart-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    transition: all 0.15s;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; transition: all 0.15s; display: flex; flex-direction: column; overflow: hidden;
   }
   .chart-card:hover { background: var(--surface2); transform: translateY(-1px); }
-  .chart-title {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--muted);
-    margin-bottom: 12px;
-  }
-  .chart-wrap {
-    position: relative;
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
-  }
-  .chart-wrap canvas {
-    max-width: 100% !important;
-    height: auto !important;
-  }
+  .chart-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 12px; }
+  .chart-wrap { position: relative; flex: 1; min-height: 0; overflow: hidden; }
+  .chart-wrap canvas { max-width: 100% !important; height: auto !important; }
 
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    background: transparent;
-    padding: 20px 28px;
-    border-bottom: 1px solid var(--border);
-  }
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px 12px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; background: transparent; padding: 20px 28px; border-bottom: 1px solid var(--border); }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.15s; }
   .stat-card:hover { background: var(--surface2); transform: translateY(-1px); }
   .stat-card.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); background: var(--surface2); }
   .stat-num { font-size: 28px; font-weight: 700; line-height: 1.2; margin-bottom: 4px; }
@@ -298,35 +159,14 @@
   .c-info { color: var(--info); }
 
   .content { padding: 20px 28px; }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    gap: 12px;
-  }
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: all 0.15s;
-  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
+  .empty-state { color: var(--dim); font-size: 13px; padding: 40px 0; text-align: center; grid-column: 1 / -1; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; transition: all 0.15s; }
   .card:hover { background: var(--surface2); transform: translateY(-1px); }
   .card.hidden { display: none; }
   .card-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
   .cat { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
-  .badge {
-    font-size: 11px;
-    font-weight: 500;
-    padding: 3px 10px;
-    border-radius: 4px;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
+  .badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 4px; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
   .badge-done { background: rgba(77,185,123,0.13); color: var(--success); border: 1px solid rgba(77,185,123,0.28); }
   .badge-wip { background: rgba(242,140,56,0.12); color: var(--accent); border: 1px solid rgba(242,140,56,0.28); }
   .badge-testing { background: rgba(126,166,214,0.12); color: var(--info); border: 1px solid rgba(126,166,214,0.28); }
@@ -413,168 +253,75 @@
       </div>
     </div>
     <div class="stats">
-      <div class="stat-card" data-filter-status=""><div class="stat-num">22</div><div class="stat-label">Всего</div></div>
-      <div class="stat-card" data-filter-status="done"><div class="stat-num c-success">13</div><div class="stat-label">Готово</div></div>
-      <div class="stat-card" data-filter-status="wip"><div class="stat-num c-accent">7</div><div class="stat-label">В процессе</div></div>
-      <div class="stat-card" data-filter-status="testing"><div class="stat-num c-info">2</div><div class="stat-label">Тестируется</div></div>
+      <div class="stat-card" data-filter-status=""><div class="stat-num" id="statTotal">—</div><div class="stat-label">Всего</div></div>
+      <div class="stat-card" data-filter-status="done"><div class="stat-num c-success" id="statDone">—</div><div class="stat-label">Готово</div></div>
+      <div class="stat-card" data-filter-status="wip"><div class="stat-num c-accent" id="statWip">—</div><div class="stat-label">В процессе</div></div>
+      <div class="stat-card" data-filter-status="testing"><div class="stat-num c-info" id="statTesting">—</div><div class="stat-label">Тестируется</div></div>
     </div>
-    <div class="content"><div class="grid">
-      <!-- ==== ВСТАВЬТЕ ВАШИ 22 КАРТОЧКИ ПРОЕКТОВ СЮДА ==== -->
-	     <div class="card" data-s="testing" data-tags="ИИ,исследование,кибербез">
-      <div class="card-top"><span class="cat c-ai">ИИ-инструменты</span><span class="badge badge-testing"><i class="material-icons">bug_report</i> Тестируется</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">psychology</i></span><span class="title">HippoRAG</span></div>
-      <p class="desc">Эксперимент с RAG-архитектурой, вдохновлённой памятью гиппокампа. Тестируется на корпусе «Хакера» — точнее ли находит связанные куски знаний.</p>
-      <div class="tags"><span class="tag">#ИИ</span><span class="tag">#RAG</span><span class="tag">#исследование</span></div>
-    </div>
-    <div class="card" data-s="wip" data-tags="аналитика,автоматизация">
-      <div class="card-top"><span class="cat c-tools">Аналитика</span><span class="badge badge-wip"><i class="material-icons">autorenew</i> В процессе</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">show_chart</i></span><span class="title">Аналитика арбитража криптобирж</span></div>
-      <p class="desc">Мониторинг ценовых расхождений между криптобиржами. Ищет арбитражные окна — когда одна монета стоит по-разному на разных площадках.</p>
-      <div class="tags"><span class="tag">#крипто</span><span class="tag">#аналитика</span><span class="tag">#автоматизация</span></div>
-    </div>
-    <div class="card" data-s="wip" data-tags="эксперимент">
-      <div class="card-top"><span class="cat c-keys">Клавиатуры</span><span class="badge badge-wip"><i class="material-icons">autorenew</i> В процессе</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">keyboard</i></span><span class="title">Half-QWERTY — одноручный ввод</span></div>
-      <p class="desc">AHK v2 скрипт: удерживаешь пробел — правая половина клавиатуры зеркалится на левую. Печатать одной рукой без переучивания.</p>
-      <div class="tags"><span class="tag">#AHK</span><span class="tag">#эксперимент</span></div>
-    </div>	
-    <div class="card" data-s="done" data-tags="инфраструктура">
-      <div class="card-top"><span class="cat c-server">Домашний сервер</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">computer</i></span><span class="title">Домашний мини-сервер «Маша»</span></div>
-      <p class="desc">Старый планшет превращён в сервер, который работает круглосуточно без монитора и клавиатуры. На нём живут все остальные проекты.</p>
-      <div class="tags"><span class="tag">#инфраструктура</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="инфраструктура,автоматизация">
-      <div class="card-top"><span class="cat c-server">Домашний сервер</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">wifi</i></span><span class="title">Авторесет интернета</span></div>
-      <p class="desc">Написан «сторож» — программа, которая автоматически перезапускает Wi-Fi если пропало. Без ручного вмешательства.</p>
-      <div class="tags"><span class="tag">#автоматизация</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="кибербез,инфраструктура">
-      <div class="card-top"><span class="cat c-net">Сеть</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">vpn_key</i></span><span class="title">Личная зашифрованная сеть</span></div>
-      <p class="desc">Построена приватная зашифрованная сеть между всеми устройствами. Подключение из любой страны без VPN-сервисов.</p>
-      <div class="tags"><span class="tag">#кибербез</span><span class="tag">#инфраструктура</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="кибербез,инфраструктура">
-      <div class="card-top"><span class="cat c-net">Сеть</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">link</i></span><span class="title">Цепочка удалённого доступа</span></div>
-      <p class="desc">Настроен маршрут: чужой компьютер → телефон → домашняя сеть → жёсткий диск. Всё шифруется, следов минимум.</p>
-      <div class="tags"><span class="tag">#кибербез</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="кибербез">
-      <div class="card-top"><span class="cat c-net">Сеть</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">public</i></span><span class="title">Анонимные сети — Tor и I2P</span></div>
-      <p class="desc">Подняты две анонимные сети для скрытого трафика. По пути обнаружен баг в официальном пакете I2P — найден обходной путь.</p>
-      <div class="tags"><span class="tag">#кибербез</span></div>
-    </div>
-    <div class="card" data-s="wip" data-tags="ИИ,автоматизация">
-      <div class="card-top"><span class="cat c-ai">ИИ-инструменты</span><span class="badge badge-wip"><i class="material-icons">autorenew</i> В процессе</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">smart_toy</i></span><span class="title">Рабочая среда для ИИ-программиста</span></div>
-      <p class="desc">Настраивается система, где ИИ пишет код с правилами: сначала тесты, потом код, запоминает контекст. Вроде виртуального джуниора.</p>
-      <div class="tags"><span class="tag">#ИИ</span><span class="tag">#автоматизация</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="ИИ,исследование">
-      <div class="card-top"><span class="cat c-ai">ИИ-инструменты</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">bar_chart</i></span><span class="title">Сравнение бесплатных ИИ-моделей</span></div>
-      <p class="desc">Несколько бесплатных ИИ протестированы по скорости, качеству и ограничениям. Составлена карта — какой под что лучше.</p>
-      <div class="tags"><span class="tag">#исследование</span><span class="tag">#ИИ</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="кибербез,разработка">
-      <div class="card-top"><span class="cat c-cyber">Кибербез</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">target</i></span><span class="title">Учебный сайт со взламываемыми дырами</span></div>
-      <p class="desc">Разработан сайт-имитация ремонтной мастерской с намеренно встроенными уязвимостями. Тренировочный полигон для обучения взлому.</p>
-      <div class="tags"><span class="tag">#кибербез</span><span class="tag">#разработка</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="кибербез,инструмент">
-      <div class="card-top"><span class="cat c-cyber">Кибербез</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">search</i></span><span class="title">Сканер «интересных» файлов</span></div>
-      <p class="desc">Утилита, которая за секунды обходит весь диск и помечает важные файлы: конфиги, ключи, пароли, базы данных.</p>
-      <div class="tags"><span class="tag">#кибербез</span><span class="tag">#инструмент</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="кибербез,инструмент">
-      <div class="card-top"><span class="cat c-cyber">Кибербез</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">map</i></span><span class="title">Набор команд для сканирования сетей</span></div>
-      <p class="desc">Готовые наборы команд для проверки сетей: учебный и боевой варианты. Запускается одной командой.</p>
-      <div class="tags"><span class="tag">#кибербез</span><span class="tag">#инструмент</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="кибербез">
-      <div class="card-top"><span class="cat c-cyber">Кибербез</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">science</i></span><span class="title">Песочница для анализа вирусов</span></div>
-      <p class="desc">Изолированная система Windows где можно безопасно запускать подозрительные файлы. Всё что они «звонят» — перехватывается.</p>
-      <div class="tags"><span class="tag">#кибербез</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="ИИ,исследование">
-      <div class="card-top"><span class="cat c-kb">База знаний</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">menu_book</i></span><span class="title">База взломов из журнала «Хакер»</span></div>
-      <p class="desc">Сотни статей переконвертированы из PDF в формат с поиском. Написан инструмент для извлечения тактических схем из описаний взломов.</p>
-      <div class="tags"><span class="tag">#исследование</span><span class="tag">#ИИ</span></div>
-    </div>
-    <div class="card" data-s="wip" data-tags="ИИ,автоматизация">
-      <div class="card-top"><span class="cat c-pai">Личный ИИ</span><span class="badge badge-wip"><i class="material-icons">autorenew</i> В процессе</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">chat</i></span><span class="title">«Второй мозг» в Телеграме</span></div>
-      <p class="desc">Личный ИИ-ассистент: кидаешь голосовое или текст — запоминает, структурирует, добавляет в задачи. Можно спрашивать что говорил месяц назад.</p>
-      <div class="tags"><span class="tag">#ИИ</span><span class="tag">#автоматизация</span></div>
-    </div>
-    <div class="card" data-s="wip" data-tags="автоматизация,аналитика">
-      <div class="card-top"><span class="cat c-pai">Личный ИИ</span><span class="badge badge-wip"><i class="material-icons">autorenew</i> В процессе</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">shopping_cart</i></span><span class="title">Трекер цен в супермаркетах</span></div>
-      <p class="desc">Аналитика изменения цен потребительской корзины по реальным данным АТБ, Сільпо, Новусу. Честный график инфляции — не «новости».</p>
-      <div class="tags"><span class="tag">#автоматизация</span><span class="tag">#аналитика</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="инструмент,разработка">
-      <div class="card-top"><span class="cat c-tools">Инструменты</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">table_rows</i></span><span class="title">Анонимизатор Excel-таблиц</span></div>
-      <p class="desc">Веб-инструмент: имена, телефоны, адреса в Excel заменяются на фиктивные прямо в браузере. Файл никуда не отправляется.</p>
-      <div class="tags"><span class="tag">#инструмент</span><span class="tag">#разработка</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="инструмент,разработка">
-      <div class="card-top"><span class="cat c-tools">Инструменты</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">link</i></span><span class="title">Чекер доступности ссылок</span></div>
-      <p class="desc">Проверка доступности URL с обходом антибот-защит. Сделан под мониторинг цен, работает как самостоятельный продукт.</p>
-      <div class="tags"><span class="tag">#инструмент</span><span class="tag">#разработка</span></div>
-    </div>
-    <div class="card" data-s="done" data-tags="ИИ,разработка">
-      <div class="card-top"><span class="cat c-bots">Боты</span><span class="badge badge-done"><i class="material-icons">check_circle</i> Готово</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">chat</i></span><span class="title">Разговорный бот на Маше</span></div>
-      <p class="desc">Телеграм-бот, который ведёт диалог и обращается к языковой модели. Живёт на домашнем сервере — без внешних платных сервисов.</p>
-      <div class="tags"><span class="tag">#ИИ</span><span class="tag">#разработка</span></div>
-    </div>
-    <div class="card" data-s="testing" data-tags="ИИ,разработка">
-      <div class="card-top"><span class="cat c-bots">Боты</span><span class="badge badge-testing"><i class="material-icons">bug_report</i> Тестируется</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">storefront</i></span><span class="title">Бот для магазина с базой знаний</span></div>
-      <p class="desc">Телеграм-бот для магазина: отвечает на вопросы покупателей опираясь на документы — прайсы, FAQ, описания товаров.</p>
-      <div class="tags"><span class="tag">#ИИ</span><span class="tag">#разработка</span></div>
-    </div>
-
-
-    <div class="card" data-s="wip" data-tags="кибербез,обучение">
-      <div class="card-top"><span class="cat c-edu">Обучение</span><span class="badge badge-wip"><i class="material-icons">autorenew</i> В процессе</span></div>
-      <div class="title-row"><span class="emoji"><i class="material-icons">school</i></span><span class="title">HackTheBox Academy</span></div>
-      <p class="desc">Системное прохождение учебных модулей по кибербезопасности на HTB Academy.</p>
-      <div class="extra">
-        <div><div class="extra-label" style="color:var(--success)">✓ Пройдено (7)</div>
-        <div class="chips">
-          <span class="chip chip-done">Intro to Academy</span><span class="chip chip-done">Web Requests</span>
-          <span class="chip chip-done">Web Applications</span><span class="chip chip-done">Getting Started</span>
-          <span class="chip chip-done">Vulnerability Assessment</span><span class="chip chip-done">Intro to Pentesting</span>
-          <span class="chip chip-done">Pentest in a Nutshell</span>
-        </div></div>
-        <div><div class="extra-label" style="color:var(--info)">⟳ В процессе</div>
-        <div class="chips">
-          <span class="chip chip-testing">Android Fundamentals</span>
-          <span class="chip chip-testing">Network Traffic Analysis</span>
-        </div></div>
-      </div>
-      <div class="tags"><span class="tag">#кибербез</span><span class="tag">#обучение</span></div>
-    </div>
-
+    <div class="content"><div class="grid" id="grid">
+      <div class="empty-state">Загружаю projects.json…</div>
     </div></div>
   </div>
 </div>
 <script>
   let activeStatus = '', activeTag = '';
   let chartLine, chartDonut;
+  let projects = [];
+
+  const statusMeta = {
+    done: { badgeClass: 'badge-done', icon: 'check_circle', label: 'Готово' },
+    wip: { badgeClass: 'badge-wip', icon: 'autorenew', label: 'В процессе' },
+    testing: { badgeClass: 'badge-testing', icon: 'bug_report', label: 'Тестируется' }
+  };
+
+  function esc(str) {
+    return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function cardHTML(p) {
+    const meta = statusMeta[p.status] || statusMeta.wip;
+    const tags = p.tags || [];
+    const tagSpans = tags.map(t => `<span class="tag">#${esc(t)}</span>`).join('');
+    let extraHTML = '';
+    if (p.extra) {
+      const doneChips = (p.extra.done || []).map(t => `<span class="chip chip-done">${esc(t)}</span>`).join('');
+      const wipChips = (p.extra.inProgress || []).map(t => `<span class="chip chip-testing">${esc(t)}</span>`).join('');
+      extraHTML = `<div class="extra">
+        <div><div class="extra-label" style="color:var(--success)">✓ Пройдено (${(p.extra.done || []).length})</div>
+        <div class="chips">${doneChips}</div></div>
+        <div><div class="extra-label" style="color:var(--info)">⟳ В процессе</div>
+        <div class="chips">${wipChips}</div></div>
+      </div>`;
+    }
+    return `<div class="card" data-s="${p.status}" data-tags="${esc(tags.join(','))}">
+      <div class="card-top"><span class="cat ${p.catColor}">${esc(p.category)}</span><span class="badge ${meta.badgeClass}"><i class="material-icons">${meta.icon}</i> ${meta.label}</span></div>
+      <div class="title-row"><span class="emoji"><i class="material-icons">${esc(p.icon)}</i></span><span class="title">${esc(p.title)}</span></div>
+      <p class="desc">${esc(p.desc)}</p>
+      ${extraHTML}
+      <div class="tags">${tagSpans}</div>
+    </div>`;
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById('grid');
+    if (!projects.length) {
+      grid.innerHTML = '<div class="empty-state">Проектов пока нет.</div>';
+      return;
+    }
+    grid.innerHTML = projects.map(cardHTML).join('');
+    applyFilters();
+  }
+
+  function renderStats() {
+    const counts = { done: 0, wip: 0, testing: 0 };
+    projects.forEach(p => { if (counts[p.status] !== undefined) counts[p.status]++; });
+    document.getElementById('statTotal').textContent = projects.length;
+    document.getElementById('statDone').textContent = counts.done;
+    document.getElementById('statWip').textContent = counts.wip;
+    document.getElementById('statTesting').textContent = counts.testing;
+    return counts;
+  }
+
   function applyFilters() {
     document.querySelectorAll('.card').forEach(card => {
       const sOk = !activeStatus || card.dataset.s === activeStatus;
@@ -582,6 +329,7 @@
       card.classList.toggle('hidden', !(sOk && tOk));
     });
   }
+
   document.querySelectorAll('.stat-card').forEach(card => {
     card.addEventListener('click', () => {
       activeStatus = card.dataset.filterStatus || '';
@@ -598,25 +346,35 @@
       applyFilters();
     });
   });
+
   Chart.defaults.color = '#A79890';
   Chart.defaults.font.family = 'Inter, sans-serif';
   Chart.defaults.font.size = 11;
-  chartLine = new Chart(document.getElementById('chartLine'), {
-    type: 'line',
-    data: {
-      labels: ['Янв','Фев','Мар','Апр','Май'],
-      datasets: [
-        { label: 'Запущено', data: [3,8,13,18,22], borderColor: '#f47006', backgroundColor: 'rgba(242,140,56,.08)', borderWidth: 2, pointRadius: 3, fill: true, tension: 0.4 },
-        { label: 'Готово', data: [1,4,7,10,13], borderColor: '#479c64', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, tension: 0.4 }
-      ]
-    },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top', labels: { boxWidth: 10, padding: 10 } } }, scales: { x: { ticks: { autoSkip: true, maxTicksLimit: 5 }, grid: { color: 'rgba(106,91,80,.25)' } }, y: { beginAtZero: true, ticks: { stepSize: 5 }, grid: { color: 'rgba(106,91,80,.25)' } } } }
-  });
-  chartDonut = new Chart(document.getElementById('chartDonut'), {
-    type: 'doughnut',
-    data: { labels: ['Готово','В процессе','Тестируется'], datasets: [{ data: [13,7,2], backgroundColor: ['rgba(71,156,101)','rgba(244,112,6)','rgba(88,135,193)'], borderColor: '#4A4038', borderWidth: 3, hoverOffset: 4 }] },
-    options: { responsive: true, maintainAspectRatio: true, cutout: '55%', plugins: { legend: { position: 'right', labels: { boxWidth: 10, padding: 12 } } } }
-  });
+
+  function renderCharts(counts) {
+    chartDonut = new Chart(document.getElementById('chartDonut'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Готово','В процессе','Тестируется'],
+        datasets: [{ data: [counts.done, counts.wip, counts.testing], backgroundColor: ['rgba(71,156,101)','rgba(244,112,6)','rgba(88,135,193)'], borderColor: '#4A4038', borderWidth: 3, hoverOffset: 4 }]
+      },
+      options: { responsive: true, maintainAspectRatio: true, cutout: '55%', plugins: { legend: { position: 'right', labels: { boxWidth: 10, padding: 12 } } } }
+    });
+    // Историческая динамика: пока фиксируется вручную (нет дат запуска в projects.json).
+    // При желании можно добавить поле "month" к проектам и считать этот график из данных тоже.
+    chartLine = new Chart(document.getElementById('chartLine'), {
+      type: 'line',
+      data: {
+        labels: ['Янв','Фев','Мар','Апр','Май','Сейчас'],
+        datasets: [
+          { label: 'Запущено', data: [3,8,13,18,22, projects.length], borderColor: '#f47006', backgroundColor: 'rgba(242,140,56,.08)', borderWidth: 2, pointRadius: 3, fill: true, tension: 0.4 },
+          { label: 'Готово', data: [1,4,7,10,13, counts.done], borderColor: '#479c64', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, tension: 0.4 }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top', labels: { boxWidth: 10, padding: 10 } } }, scales: { x: { ticks: { autoSkip: true, maxTicksLimit: 6 }, grid: { color: 'rgba(106,91,80,.25)' } }, y: { beginAtZero: true, ticks: { stepSize: 5 }, grid: { color: 'rgba(106,91,80,.25)' } } } }
+    });
+  }
+
   let resizeTimer;
   window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
@@ -625,6 +383,23 @@
       if (chartDonut) { chartDonut.resize(); chartDonut.update(); }
     }, 150);
   });
+
+  fetch('projects.json')
+    .then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(data => {
+      projects = data;
+      renderGrid();
+      const counts = renderStats();
+      renderCharts(counts);
+    })
+    .catch(err => {
+      document.getElementById('grid').innerHTML =
+        '<div class="empty-state">Не удалось загрузить projects.json (' + esc(err.message) + '). ' +
+        'Если открываешь файл локально двойным кликом — браузер блокирует fetch() по file://, запусти локальный сервер: <code>python3 -m http.server</code> в папке репозитория.</div>';
+    });
 </script>
 </body>
 </html>

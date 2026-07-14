@@ -204,6 +204,33 @@
     .stat-label { font-size: 9px; }
   }
 
+  .card { cursor: pointer; }
+
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px; z-index: 100; opacity: 0; pointer-events: none;
+    transition: opacity 0.15s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 26px 28px; max-width: 560px; width: 100%; max-height: 85vh; overflow-y: auto;
+    transform: translateY(8px); transition: transform 0.15s;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-close {
+    float: right; cursor: pointer; color: var(--dim); background: none; border: none;
+    font-size: 20px; line-height: 1; padding: 2px;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal .card-top { margin-bottom: 14px; }
+  .modal .title-row { margin-bottom: 14px; }
+  .modal .title { font-size: 18px; }
+  .modal .emoji .material-icons { font-size: 24px; }
+  .modal .desc { font-size: 14px; line-height: 1.7; margin-bottom: 16px; white-space: pre-wrap; }
+  .modal .date-label { font-size: 11px; color: var(--dim); margin-bottom: 4px; }
+
   ::-webkit-scrollbar { width: 5px; height: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
@@ -263,6 +290,10 @@
     </div></div>
   </div>
 </div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
 <script>
   let activeStatus = '', activeTag = '';
   let chartLine, chartDonut;
@@ -276,6 +307,13 @@
 
   function esc(str) {
     return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  const MONTHS_RU = ['', 'янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const [y, m] = dateStr.split('-');
+    return `${MONTHS_RU[parseInt(m, 10)] || ''} ${y}`;
   }
 
   function cardHTML(p) {
@@ -293,14 +331,17 @@
         <div class="chips">${wipChips}</div></div>
       </div>`;
     }
-    return `<div class="card" data-s="${p.status}" data-tags="${esc(tags.join(','))}">
+    const dateLabel = p.date ? `<span class="tag" style="border-style:dashed">${esc(formatDate(p.date))}</span>` : '';
+    return `<div class="card" data-s="${p.status}" data-tags="${esc(tags.join(','))}" data-idx="${p.__idx}">
       <div class="card-top"><span class="cat ${p.catColor}">${esc(p.category)}</span><span class="badge ${meta.badgeClass}"><i class="material-icons">${meta.icon}</i> ${meta.label}</span></div>
       <div class="title-row"><span class="emoji"><i class="material-icons">${esc(p.icon)}</i></span><span class="title">${esc(p.title)}</span></div>
       <p class="desc">${esc(p.desc)}</p>
       ${extraHTML}
-      <div class="tags">${tagSpans}</div>
+      <div class="tags">${dateLabel}${tagSpans}</div>
     </div>`;
   }
+
+  let sortedProjects = [];
 
   function renderGrid() {
     const grid = document.getElementById('grid');
@@ -308,9 +349,59 @@
       grid.innerHTML = '<div class="empty-state">Проектов пока нет.</div>';
       return;
     }
-    grid.innerHTML = projects.map(cardHTML).join('');
+    // Сортировка: сначала свежие (по date, YYYY-MM), проекты без даты — в конец
+    sortedProjects = [...projects].sort((a, b) => (b.date || '0000-00').localeCompare(a.date || '0000-00'));
+    sortedProjects.forEach((p, i) => p.__idx = i);
+    grid.innerHTML = sortedProjects.map(cardHTML).join('');
     applyFilters();
   }
+
+  function openModal(p) {
+    const meta = statusMeta[p.status] || statusMeta.wip;
+    const tags = p.tags || [];
+    const tagSpans = tags.map(t => `<span class="tag">#${esc(t)}</span>`).join('');
+    let extraHTML = '';
+    if (p.extra) {
+      const doneChips = (p.extra.done || []).map(t => `<span class="chip chip-done">${esc(t)}</span>`).join('');
+      const wipChips = (p.extra.inProgress || []).map(t => `<span class="chip chip-testing">${esc(t)}</span>`).join('');
+      extraHTML = `<div class="extra" style="margin-bottom:14px">
+        <div><div class="extra-label" style="color:var(--success)">✓ Пройдено (${(p.extra.done || []).length})</div>
+        <div class="chips">${doneChips}</div></div>
+        <div><div class="extra-label" style="color:var(--info)">⟳ В процессе</div>
+        <div class="chips">${wipChips}</div></div>
+      </div>`;
+    }
+    const dateLabel = p.date ? `<div class="date-label">${esc(formatDate(p.date))}</div>` : '';
+    const fullDesc = p.longDesc || p.desc;
+    document.getElementById('modalContent').innerHTML = `
+      <button class="modal-close" id="modalCloseBtn">✕</button>
+      <div class="card-top"><span class="cat ${p.catColor}">${esc(p.category)}</span><span class="badge ${meta.badgeClass}"><i class="material-icons">${meta.icon}</i> ${meta.label}</span></div>
+      <div class="title-row"><span class="emoji"><i class="material-icons">${esc(p.icon)}</i></span><span class="title">${esc(p.title)}</span></div>
+      ${dateLabel}
+      <p class="desc">${esc(fullDesc)}</p>
+      ${extraHTML}
+      <div class="tags">${tagSpans}</div>
+    `;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+
+  document.getElementById('modalOverlay').addEventListener('click', (e) => {
+    if (e.target.id === 'modalOverlay') closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+  document.getElementById('grid').addEventListener('click', (e) => {
+    const card = e.target.closest('.card');
+    if (!card) return;
+    const idx = parseInt(card.dataset.idx, 10);
+    if (!isNaN(idx) && sortedProjects[idx]) openModal(sortedProjects[idx]);
+  });
 
   function renderStats() {
     const counts = { done: 0, wip: 0, testing: 0 };

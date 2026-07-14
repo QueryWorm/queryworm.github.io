@@ -230,6 +230,14 @@
   .modal .emoji .material-icons { font-size: 24px; }
   .modal .desc { font-size: 14px; line-height: 1.7; margin-bottom: 16px; white-space: pre-wrap; }
   .modal .date-label { font-size: 11px; color: var(--dim); margin-bottom: 4px; }
+  .repo-box {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; margin-top: 14px; font-size: 12px; color: var(--dim); line-height: 1.5;
+  }
+  .repo-box-link { color: var(--info); }
+  .repo-box a { color: var(--info); text-decoration: none; font-weight: 600; }
+  .repo-box a:hover { text-decoration: underline; }
 
   ::-webkit-scrollbar { width: 5px; height: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
@@ -373,6 +381,18 @@
     }
     const dateLabel = p.date ? `<div class="date-label">${esc(formatDate(p.date))}</div>` : '';
     const fullDesc = p.longDesc || p.desc;
+    let repoHTML = '';
+    if (p.repoUrl) {
+      repoHTML = `<div class="repo-box repo-box-link">
+        <span class="material-icons" style="font-size:16px">code</span>
+        <a href="${esc(p.repoUrl)}" target="_blank" rel="noopener">Открыть репозиторий →</a>
+      </div>`;
+    } else if (p.repoNote) {
+      repoHTML = `<div class="repo-box">
+        <span class="material-icons" style="font-size:16px">lock</span>
+        <span>${esc(p.repoNote)}</span>
+      </div>`;
+    }
     document.getElementById('modalContent').innerHTML = `
       <button class="modal-close" id="modalCloseBtn">✕</button>
       <div class="card-top"><span class="cat ${p.catColor}">${esc(p.category)}</span><span class="badge ${meta.badgeClass}"><i class="material-icons">${meta.icon}</i> ${meta.label}</span></div>
@@ -381,6 +401,7 @@
       <p class="desc">${esc(fullDesc)}</p>
       ${extraHTML}
       <div class="tags">${tagSpans}</div>
+      ${repoHTML}
     `;
     document.getElementById('modalOverlay').classList.add('open');
     document.getElementById('modalCloseBtn').addEventListener('click', closeModal);

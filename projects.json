@@ -363,5 +363,158 @@
     "longDesc": "Лингвистическое профилирование по корпусу постов в соцсетях: норма популяции + личный идиолект + отклонение конкретного сообщения от своей же нормы. Марковский поиск выбросов предложен как более обоснованный метод, чем классическая детекция лжи по когнитивной нагрузке. Отдельно разобран случай самообмана, где предположение о когнитивной нагрузке не работает.",
     "repoUrl": null,
     "repoNote": "Исследовательский брейншторм, не код-проект — публиковать пока нечего, только концепция."
-  }
+  },
+  {
+  "title": "FOXY — 4-колёсный ровер",
+  "category": "Дроны",
+  "catColor": "c-net",
+  "icon": "radar",
+  "status": "wip",
+  "desc": "Ровер на моторах от электросамоката (плата FOXY MB 3.4, ESP32). Заменяю полётный контроллер на Raspberry Pi по WiFi — Pi эмулирует CRSF-приёмник напрямую через ELRS UART-разъём, опираясь на находки из реверса CRSF.",
+  "tags": [
+    "робототехника",
+    "ESP32",
+    "WiFi"
+  ],
+  "date": "2026-09",
+  "longDesc": "4-колёсный ровер на моторах и драйверах от электросамоката (Shanghai Juyi Electronics ICID:JY01). Штатный полётный контроллер (ESP32, FOXY MB 3.4) планирую заменить на Raspberry Pi, подключённый напрямую к ELRS UART-заголовку — Pi эмулирует CRSF-приёмник вместо отдельного MCU. Тестирую маппинг каналов на колёса через USB-UART адаптер и SSH, без RC-передатчика.",
+  "repoUrl": null,
+  "repoNote": "В процессе, публиковать пока рано."
+},
+{
+  "title": "IMOU PTZ — автослежение камеры",
+  "category": "Кибербез",
+  "catColor": "c-cyber",
+  "icon": "videocam",
+  "status": "wip",
+  "desc": "Пайплайн для PTZ-камеры IMOU: RTSP → детектор движения → YOLO (person) → трекер → ONVIF-управление поворотом/наклоном. Второй фазой — добавление распознавания лиц.",
+  "tags": [
+    "компьютерное зрение",
+    "YOLO",
+    "ONVIF"
+  ],
+  "date": "2026-08",
+  "longDesc": "Автослежение PTZ-камеры IMOU за человеком. Фаза 1: RTSP-поток → motion-gate → YOLO детекция person → трекер → ONVIF-команды на камеру. Фаза 2 (после стабильной фазы 1): ветка на распознавание лиц. Принцип сборки — сначала механика и видео, потом дешёвый гейт движения, потом детекция/трекинг/PTZ, и только в конце лица; на каждом этапе измеряется CPU/RAM/FPS.",
+  "repoUrl": null,
+  "repoNote": "В процессе, не выложено."
+},
+{
+  "title": "ObserverAI — сервер видеонаблюдения",
+  "category": "Кибербез",
+  "catColor": "c-cyber",
+  "icon": "search",
+  "status": "wip",
+  "desc": "Сервис на 5 камер: motion-gate → YOLO детекция → событие → распознавание лица/тела (SCRFD + ArcFace + OSNet). Сейчас в работе — IoU-трекер, per-track cooldown и упор в производительность YOLO на CPU.",
+  "tags": [
+    "компьютерное зрение",
+    "YOLO",
+    "identity"
+  ],
+  "date": "2026-08",
+  "longDesc": "Мультикамерный сервис наблюдения (5 потоков: ворота, вход, столовая, склад, гараж). Пайплайн: дешёвый motion-gate (MOG2) → YOLO (COCO, 14 классов) → событие тревоги по confidence+cooldown → обогащение личностью (SCRFD-детекция лица + ArcFace эмбеддинг, OSNet эмбеддинг тела) только на тревожных событиях. В работе: IoU-трекер между кадрами с TTL-буфером на окклюзии, per-track cooldown вместо глобального, разбор узкого места — YOLO-инференс на CPU ~1.5с/кадр на целевом планшете 4ГБ.",
+  "repoUrl": null,
+  "repoNote": "В процессе, не выложено."
+},
+{
+  "title": "Визуализация топологии MikroTik-сети",
+  "category": "Сеть",
+  "catColor": "c-net",
+  "icon": "public",
+  "status": "wip",
+  "desc": "Тулкит для отрисовки топологии multi-site MikroTik/WireGuard сети: D3.js force-directed граф, Flask живой опрос узлов, парсер конфигов.",
+  "tags": [
+    "сеть",
+    "MikroTik",
+    "D3.js"
+  ],
+  "date": "2026-08",
+  "longDesc": "Визуализация топологии многосайтовой WireGuard-сети на MikroTik (хаб «Aspirin» + споки). D3.js force-directed граф, Flask-бэкенд с живым опросом узлов, отдельные модули parser.py / merge.py / multi_resolve.py для сборки топологии из конфигов нескольких роутеров.",
+  "repoUrl": null,
+  "repoNote": "В процессе, не выложено."
+},
+{
+  "title": "dotfiles — модульный zsh-конфиг",
+  "category": "Инструменты",
+  "catColor": "c-tools",
+  "icon": "terminal",
+  "status": "done",
+  "desc": "Модульный репозиторий zsh-конфигурации для нескольких машин (WSL Debian/Ubuntu, серверы) с ролями по хосту и идемпотентным инсталлятором.",
+  "tags": [
+    "dotfiles",
+    "zsh",
+    "инструмент"
+  ],
+  "date": "2026-07",
+  "longDesc": "Модульная структура zsh: .zsh_env, .zsh_ui, .zsh_aliases, .zsh_functions, .zsh_dev, hosts/$DOTFILES_ROLE.zsh. install.sh идемпотентный, с бэкапом существующего .zshrc. Обкатан на нескольких машинах (KOMPUTER — WSL Debian/Ubuntu, katya). Включает набор nmap-алиасов и persistent $IP через ~/.session_vars.",
+  "repoUrl": "https://github.com/QueryWorm/dotfiles",
+  "repoNote": null
+},
+{
+  "title": "Сервер «master» + файлопомойка",
+  "category": "Домашний сервер",
+  "catColor": "c-server",
+  "icon": "dns",
+  "status": "done",
+  "desc": "Второй Proxmox-сервер (Supermicro X10DRL-C, RAID-массив ~11.5ТБ) с Samba-расшарой и отдельной файлопомойкой на CasaOS. Управляется вместе с «Машей» через Proxmox Datacenter Manager.",
+  "tags": [
+    "Proxmox",
+    "Samba",
+    "инфраструктура"
+  ],
+  "date": "2026-07",
+  "longDesc": "Proxmox-сервер «master» (Supermicro X10DRL-C, SMC3108 RAID, ~11.5ТБ массив + 126ГБ SSD boot). Samba-шара /srv/shared, смонтирована на katya и как Z: на Windows. Отдельная «файлопомойка» на CasaOS VM (dufs + nginx + MikroTik DNS files.office). Второй Proxmox рядом управляется вместе с «Машей» через Proxmox Datacenter Manager вместо кластеризации — чтобы легко разъединить при необходимости.",
+  "repoUrl": null,
+  "repoNote": "Личная инфраструктура, не для публикации."
+},
+{
+  "title": "Флот FPV-дронов (OpenIPC)",
+  "category": "Дроны",
+  "catColor": "c-net",
+  "icon": "flight",
+  "status": "wip",
+  "desc": "6 FPV-дронов на OpenIPC (платформа ssc30kq, стриминг Majestic). Своя bash-утилита для прошивки/бэкапа/восстановления, NAT на MikroTik под каждый борт, MAVLink CLI для колёсной платформы.",
+  "tags": [
+    "FPV",
+    "OpenIPC",
+    "дроны"
+  ],
+  "date": "2026-08",
+  "longDesc": "Флот из 6 FPV-дронов на OpenIPC (ssc30kq, видеостриминг через Majestic). MAC-адреса стандартизированы (fw_setenv ethaddr 02:00:00:00:00:0N), на MikroTik настроен NAT под каждый борт (видео порт 3200N, управление 3300N). Написана bash-утилита fpv для провижининга/бэкапа/восстановления бортов. Отдельно — MAVLink CLI-тул (pymavlink) для колёсной платформы: listen, status, dashboard, arm/disarm, webjoy.",
+  "repoUrl": null,
+  "repoNote": "Личный флот, публикация не планируется — утилита fpv может быть выложена отдельно позже."
+},
+{
+  "title": "Реверс прошивки ESP32 CRSF",
+  "category": "Кибербез",
+  "catColor": "c-cyber",
+  "icon": "memory",
+  "status": "done",
+  "desc": "Полный реверс-инжиниринг обработки CRSF-кадров в прошивке полётного контроллера FPV на ESP32 через Ghidra — от приёма по UART до распаковки 16 каналов RC.",
+  "tags": [
+    "реверс-инжиниринг",
+    "Ghidra",
+    "ESP32"
+  ],
+  "date": "2026-06",
+  "longDesc": "Полный реверс пайплайна CRSF в прошивке ESP32-контроллера: приём по UART → буферизация кадра → проверка CRC8 (DVB-S2, poly 0xD5) → диспетчеризация по типу кадра → распаковка 16 каналов × 11 бит для типа 0x16 (RC channels). Инструментарий: Ghidra 12.1.2 + ghidra-mcp мост, opencode как основной агент. Все найденные функции переименованы и прокомментированы в проекте Ghidra — знание пригодилось напрямую для проекта FOXY.",
+  "repoUrl": null,
+  "repoNote": "Исследовательская работа, заметки в Ghidra-проекте, публикация не планируется."
+},
+{
+  "title": "Letta — секретарь в WhatsApp",
+  "category": "Личный ИИ",
+  "catColor": "c-pai",
+  "icon": "chat",
+  "status": "testing",
+  "desc": "Секретарь на базе Letta в Docker Compose на сервере katya, общается через WhatsApp. Подбор LLM-провайдера через LiteLLM с фолбэками, интеграция Google Calendar готовится.",
+  "tags": [
+    "Letta",
+    "LLM",
+    "автоматизация"
+  ],
+  "date": "2026-07",
+  "longDesc": "WhatsApp-секретарь на Letta, Docker Compose на сервере katya (containers: letta-server, litellm, code-channels, db, searxng). LiteLLM с фолбэками (cerebras/gemma-4-31b основной, openrouter/gemma-4-26b запасной) после проблем с Mistral (401) — нужна была именно litellm_settings.fallbacks, а не router_settings.fallback_models. WhatsApp-патч для картинок вшит в Dockerfile. OAuth для Google Calendar подготовлен, но ещё не подключён в стек.",
+  "repoUrl": null,
+  "repoNote": "Личная инфраструктура, не выкладывается."
+}
 ]
